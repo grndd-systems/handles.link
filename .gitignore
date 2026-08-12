@@ -1,0 +1,18 @@
+# deps / build
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# env — .env.example is the committed template
+.env*
+!.env.example
+
+# staged proving assets (scripts/stage-assets.sh output)
+public/tlsn_wasm.js
+public/tlsn_wasm_bg.wasm
+public/spawn.js
+public/circuit/
+public/circuits/
+public/wasm/

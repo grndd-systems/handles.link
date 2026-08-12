@@ -1,0 +1,26 @@
+diff --git a/dist/google/oidc.js b/dist/google/oidc.js
+index bf67a76ed8d0cbcd3e06bff46f11d4796a0cbe9d..2d1484bcbc4f3d09bc623998dfbb1724993a92f7 100644
+--- a/dist/google/oidc.js
++++ b/dist/google/oidc.js
+@@ -54,7 +54,7 @@ export async function proveOidc(args, signal) {
+     // wasm. Init with an EXPLICIT `_bg.wasm` URL: the no-arg default resolves
+     // relative to import.meta.url, which is fine here, but explicit keeps the
+     // staging contract visible.
+-    const wasm = (await import(/* @vite-ignore */ wasmJsUrl));
++    const wasm = (await import(/* @vite-ignore */ /* webpackIgnore: true */ wasmJsUrl));
+     await wasm.default(wasmJsUrl.replace(/\.js$/, '_bg.wasm'));
+     const jwksResp = await fetch(JWKS_URL);
+     if (!jwksResp.ok)
+diff --git a/dist/x/prover.worker.js b/dist/x/prover.worker.js
+index d545ee9a440fcb439a9ab29fcb4bb30264783a8a..6f19fc241f98003a3cd2085a98bcdea65b6594b8 100644
+--- a/dist/x/prover.worker.js
++++ b/dist/x/prover.worker.js
+@@ -105,7 +105,7 @@ async function loadWasm() {
+     // same-origin import keeps the multi-megabyte MPC bundle out of this
+     // library's graph.
+     const wasmUrl = `${appOrigin}/tlsn_wasm.js`;
+-    const wasm = (await import(/* @vite-ignore */ wasmUrl));
++    const wasm = (await import(/* @vite-ignore */ /* webpackIgnore: true */ wasmUrl));
+     if (!wasmInitialized) {
+         await wasm.default();
+         try {

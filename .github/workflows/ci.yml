@@ -1,0 +1,102 @@
+name: CI
+
+# Two jobs: the web app (install, lint/format, typecheck, build, unit
+# tests) and DCO. Every third-party action is pinned by commit SHA, with
+# the tag in a comment, so a moved tag cannot change what executes.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # pnpm before setup-node: `cache: pnpm` shells out to pnpm to locate
+      # the store, so the binary has to exist first.
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        with:
+          version: 10
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint and formatting
+        run: pnpm lint && pnpm fmt:check
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
+
+      - name: Tests
+        run: pnpm test
+
+  # ---------------------------------------------------------------------------
+  # DCO: every commit carries a Signed-off-by trailer. Plain git over the
+  # event's commit range — no marketplace action, so there is nothing to pin
+  # and nothing to compromise.
+  # ---------------------------------------------------------------------------
+  dco:
+    name: DCO
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history: the PR base and the push's `before` are reachable
+          # only in a complete clone, and the repo is small.
+          fetch-depth: 0
+
+      - name: Every commit is signed off
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_AFTER: ${{ github.event.after }}
+        run: |
+          set -euo pipefail
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            range="$BASE_SHA..$HEAD_SHA"
+          else
+            # Push to main. `before` is all zeros on a branch creation and
+            # may be unreachable after a force push; in either case there is
+            # no honest range, so fall back to the head commit alone rather
+            # than failing on plumbing.
+            zero="0000000000000000000000000000000000000000"
+            if [ -n "$PUSH_BEFORE" ] && [ "$PUSH_BEFORE" != "$zero" ] \
+              && git cat-file -e "$PUSH_BEFORE^{commit}" 2>/dev/null; then
+              range="$PUSH_BEFORE..$PUSH_AFTER"
+            else
+              echo "No usable push range; checking only the head commit."
+              range="$PUSH_AFTER^!"
+            fi
+          fi
+
+          # Merge commits are exempt, as in the standard DCO probot: nobody
+          # authors a merge, and the merged commits are themselves in range.
+          missing=0
+          for sha in $(git rev-list --no-merges "$range"); do
+            if git log -1 --format=%B "$sha" | grep -qiE '^Signed-off-by: .+ <.+>'; then
+              continue
+            fi
+            echo "::error::commit $sha lacks a Signed-off-by trailer (use 'git commit -s')"
+            missing=1
+          done
+          exit "$missing"
