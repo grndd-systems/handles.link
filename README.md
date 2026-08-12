@@ -22,11 +22,15 @@ packages: [`@libid/claim`](https://www.npmjs.com/package/@libid/claim)
 - `lib/` — config parsing + platform enablement (pure, unit-tested) and
   the wallet hook (connect, chain guard with `wallet_switchEthereumChain`,
   send).
-- `scripts/stage-assets.sh` — fetches the static proving assets into
-  `public/` (gitignored). GitHub claims need none; X needs the tlsn wasm
-  bundle + token circuit; Google needs the jwt circuit + noir/OIDC wasm.
-  The OIDC wasm is still built from a libid checkout (`LIBID_REPO=…`) —
-  a TODO until libid ships it as a release asset.
+- `pnpm stage-assets` — runs
+  [`@libid/claim-full`](https://www.npmjs.com/package/@libid/claim-full)'s
+  `libid-claim-assets` bin (via `pnpm dlx`), which copies its bundled,
+  release-verified proving assets into `public/` (gitignored). GitHub
+  claims need none; X needs the tlsn wasm bundle + token circuit; Google
+  needs the jwt circuit + the noir wasm. Requires `@libid/claim-full` ≥
+  0.2.0 on npm, and the Google flow additionally needs `@libid/claim` ≥
+  0.2.0 in the lockfile (earlier versions loaded a separate OIDC wasm
+  that no longer exists; 0.2.0 does that conversion in TypeScript).
 - `next.config.ts` — the load-bearing headers: COOP `same-origin` + COEP
   `require-corp` on every route (SharedArrayBuffer for multithreaded
   proving), a CSP whose `worker-src`/`connect-src` the provers need, and
@@ -52,7 +56,7 @@ harness/boot.sh          # KEEP_STACK=1 to leave it up when you exit
 
 # 2. Here: stage the proving assets (GitHub-only? skip this).
 pnpm install
-LIBID_REPO=../libid pnpm stage-assets
+pnpm stage-assets
 
 # 3. Point .env.local at the harness — the values are exactly the ones
 #    harness/render-env.sh writes (copy them from the libid checkout's

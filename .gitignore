@@ -9,10 +9,10 @@ next-env.d.ts
 .env*
 !.env.example
 
-# staged proving assets (scripts/stage-assets.sh output)
+# staged proving assets (`pnpm stage-assets` = @libid/claim-full's
+# libid-claim-assets bin output)
 public/tlsn_wasm.js
 public/tlsn_wasm_bg.wasm
 public/spawn.js
-public/circuit/
 public/circuits/
 public/wasm/
