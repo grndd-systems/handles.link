@@ -16,7 +16,7 @@
     "stage-assets": "pnpm dlx @libid/claim-full@'>=0.2.0 <0.3.0' public"
   },
   "dependencies": {
-    "@libid/claim": "^0.1.1 || ^0.2.0",
+    "@libid/claim": "^0.2.0",
     "@libid/contracts": "^0.3.0",
     "next": "16.1.6",
     "react": "19.2.4",

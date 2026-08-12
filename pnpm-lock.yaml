@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@libid/claim':
-        specifier: ^0.1.1 || ^0.2.0
-        version: 0.1.1(viem@2.55.13(typescript@5.9.3))
+        specifier: ^0.2.0
+        version: 0.2.0(viem@2.55.13(typescript@5.9.3))
       '@libid/contracts':
         specifier: ^0.3.0
         version: 0.3.0(viem@2.55.13(typescript@5.9.3))
@@ -427,8 +427,8 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@libid/claim@0.1.1':
-    resolution: {integrity: sha512-MGAjJ+Td8pM6YAFXK3L7HBIy95PT05hRorxFQR+q2Zw6dAAdU74xOUU7sJX9DUa9wPXh4y/jbWHqSSfC7EvxxQ==}
+  '@libid/claim@0.2.0':
+    resolution: {integrity: sha512-o8QBm15fOJOAlpS0saSORYh2tN4p3xHnmzgUat/1K9Z8keeu9noJkDhlROO18/ZdUVak69gjbFbzwPs0ikHakA==}
     peerDependencies:
       viem: ^2.48.11
 
@@ -1360,7 +1360,7 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
-  '@libid/claim@0.1.1(viem@2.55.13(typescript@5.9.3))':
+  '@libid/claim@0.2.0(viem@2.55.13(typescript@5.9.3))':
     dependencies:
       '@aztec/bb.js': 5.0.0-nightly.20260324
       '@libid/contracts': 0.2.0(viem@2.55.13(typescript@5.9.3))
