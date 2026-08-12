@@ -4,18 +4,13 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  '@libid/claim':
-    hash: bb162dd7e2c92f04004e12b016209fca5fc599f77a0fda830e4989e6187510e7
-    path: patches/@libid__claim.patch
-
 importers:
 
   .:
     dependencies:
       '@libid/claim':
-        specifier: ^0.1.0
-        version: 0.1.0(patch_hash=bb162dd7e2c92f04004e12b016209fca5fc599f77a0fda830e4989e6187510e7)(viem@2.55.13(typescript@5.9.3))
+        specifier: ^0.1.1
+        version: 0.1.1(viem@2.55.13(typescript@5.9.3))
       '@libid/contracts':
         specifier: ^0.3.0
         version: 0.3.0(viem@2.55.13(typescript@5.9.3))
@@ -432,8 +427,8 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@libid/claim@0.1.0':
-    resolution: {integrity: sha512-bQ63kBrl9q8A4thyY/aY/nQzCJeFup0tJfPPQdryNS5RWJsjCi6Xha2UFTcxYLnc6eFJkgbDiWb0gVqw8B1ayQ==}
+  '@libid/claim@0.1.1':
+    resolution: {integrity: sha512-MGAjJ+Td8pM6YAFXK3L7HBIy95PT05hRorxFQR+q2Zw6dAAdU74xOUU7sJX9DUa9wPXh4y/jbWHqSSfC7EvxxQ==}
     peerDependencies:
       viem: ^2.48.11
 
@@ -1365,7 +1360,7 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
-  '@libid/claim@0.1.0(patch_hash=bb162dd7e2c92f04004e12b016209fca5fc599f77a0fda830e4989e6187510e7)(viem@2.55.13(typescript@5.9.3))':
+  '@libid/claim@0.1.1(viem@2.55.13(typescript@5.9.3))':
     dependencies:
       '@aztec/bb.js': 5.0.0-nightly.20260324
       '@libid/contracts': 0.2.0(viem@2.55.13(typescript@5.9.3))
