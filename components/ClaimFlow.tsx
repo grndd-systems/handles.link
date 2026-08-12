@@ -133,6 +133,11 @@ async function runClaim(
         // The OAuth app registers one redirect and every caller has to
         // name it; app/zk/x-popup serves the relay page.
         redirectUri: `${window.location.origin}/zk/x-popup`,
+        // Explicit: @libid/claim-full stages both circuits under
+        // /circuits/ (plural). @libid/claim 0.1.x defaulted the X one to
+        // /circuit/ (singular); 0.2.0 moved the default here. Naming the
+        // URL keeps the flow working under either library version.
+        circuitUrl: `${window.location.origin}/circuits/dyaka_noir_token.json`,
       },
       onStatus,
       signal,
