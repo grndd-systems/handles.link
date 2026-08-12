@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@libid/claim':
-        specifier: ^0.1.1
+        specifier: ^0.1.1 || ^0.2.0
         version: 0.1.1(viem@2.55.13(typescript@5.9.3))
       '@libid/contracts':
         specifier: ^0.3.0
