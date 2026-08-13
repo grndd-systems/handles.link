@@ -8,6 +8,15 @@ const apiOrigin = apiUrl ? new URL(apiUrl).origin : ''
 const namesApiUrl = process.env.NEXT_PUBLIC_NAMES_API_URL ?? ''
 const namesApiOrigin = namesApiUrl ? new URL(namesApiUrl).origin : ''
 
+// The chain RPC, proxied through this origin as /rpc. The node behind
+// RPC_PROXY_TARGET answers CORS preflights with 405 and sends no
+// Access-Control-Allow-* headers, so a browser cannot call it cross-origin at
+// all — every eth_call dies in preflight while the same request from curl
+// works, which is exactly how it slipped through. Rewrites run server-side,
+// where CORS does not exist. RPC_PROXY_TARGET is server-only on purpose: the
+// browser needs to know /rpc, not the node.
+const rpcProxyTarget = process.env.RPC_PROXY_TARGET ?? ''
+
 const nextConfig: NextConfig = {
   devIndicators: false,
   // bb.js / noir_js are imported only on the client (dynamic `import()`
@@ -35,6 +44,9 @@ const nextConfig: NextConfig = {
   turbopack: {},
 
   rewrites: async () => [
+    // Same-origin RPC — see rpcProxyTarget above. NEXT_PUBLIC_RPC_URL points
+    // at this route in deployed environments.
+    ...(rpcProxyTarget ? [{ source: '/rpc', destination: rpcProxyTarget }] : []),
     // public/tlsn_wasm.js requests its worker at a build-hashed path,
     // snippets/web-spawn-<hash>/js/spawn.js, because wasm-pack emits the
     // loader with an empty public path so the URL resolves against the
