@@ -16,3 +16,4 @@ public/tlsn_wasm_bg.wasm
 public/spawn.js
 public/circuits/
 public/wasm/
+.vercel
