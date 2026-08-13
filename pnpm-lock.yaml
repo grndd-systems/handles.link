@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@libid/claim':
-        specifier: ^0.2.0
-        version: 0.2.0(viem@2.55.13(typescript@5.9.3))
+        specifier: ^0.3.0
+        version: 0.3.0(viem@2.55.13(typescript@5.9.3))
       '@libid/contracts':
         specifier: ^0.3.0
         version: 0.3.0(viem@2.55.13(typescript@5.9.3))
@@ -427,18 +427,18 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@libid/claim@0.2.0':
-    resolution: {integrity: sha512-o8QBm15fOJOAlpS0saSORYh2tN4p3xHnmzgUat/1K9Z8keeu9noJkDhlROO18/ZdUVak69gjbFbzwPs0ikHakA==}
-    peerDependencies:
-      viem: ^2.48.11
-
-  '@libid/contracts@0.2.0':
-    resolution: {integrity: sha512-Z+qSdBRtNxRY/qn+xIYcZtT4ZTrzooGMJoDNXdCYS66NxcsrGrPq4FKV1AiksO48D8F7J6VBp4e9I1LZwB7hKA==}
+  '@libid/claim@0.3.0':
+    resolution: {integrity: sha512-hKk+kAQiKlFc85Dmn1vCM+bxUvZAJQUgI8Gs8I6b4LBcrMURVB34Zj9vHbCN2mpl6XbY1lVrO/K/uTRGqtYTdA==}
     peerDependencies:
       viem: ^2.48.11
 
   '@libid/contracts@0.3.0':
     resolution: {integrity: sha512-VieKnQbJLUIUCmpFaH9cN1fUHxX+wybU1daZ/bf+AFHo/rObrlJez78eRGC+LarLC8t9c1+fvmkyHhoPMmptgg==}
+    peerDependencies:
+      viem: ^2.48.11
+
+  '@libid/contracts@0.5.0':
+    resolution: {integrity: sha512-r8jTgeFPXuttcu/XKiZeKRd6I87p/5ieKyFaTyBlRw2UQhBQPeO7VtkT88aSWxuR6EJjdxojde4xAO2mXdhJwg==}
     peerDependencies:
       viem: ^2.48.11
 
@@ -1360,20 +1360,20 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
-  '@libid/claim@0.2.0(viem@2.55.13(typescript@5.9.3))':
+  '@libid/claim@0.3.0(viem@2.55.13(typescript@5.9.3))':
     dependencies:
       '@aztec/bb.js': 5.0.0-nightly.20260324
-      '@libid/contracts': 0.2.0(viem@2.55.13(typescript@5.9.3))
+      '@libid/contracts': 0.5.0(viem@2.55.13(typescript@5.9.3))
       '@noir-lang/acvm_js': 1.0.0-beta.20
       '@noir-lang/noir_js': 1.0.0-beta.20
       '@noir-lang/noirc_abi': 1.0.0-beta.20
       viem: 2.55.13(typescript@5.9.3)
 
-  '@libid/contracts@0.2.0(viem@2.55.13(typescript@5.9.3))':
+  '@libid/contracts@0.3.0(viem@2.55.13(typescript@5.9.3))':
     dependencies:
       viem: 2.55.13(typescript@5.9.3)
 
-  '@libid/contracts@0.3.0(viem@2.55.13(typescript@5.9.3))':
+  '@libid/contracts@0.5.0(viem@2.55.13(typescript@5.9.3))':
     dependencies:
       viem: 2.55.13(typescript@5.9.3)
 
