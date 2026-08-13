@@ -203,7 +203,20 @@ function Claim({
 
       // Read it back rather than trusting the send: a claim that wrote the
       // wrong key would still have produced a receipt.
-      const owner = await resolveId(reader, id, result.userId)
+      //
+      // Retried, because the first read can race the write: the RPC is load
+      // balanced, so the receipt may come from one node and this eth_call from
+      // another that is a block behind — the first real claim tripped exactly
+      // this, reporting failure for a bind that had landed. Propagation is the
+      // common case and clears in a few seconds; a genuinely wrong write still
+      // fails every attempt and the error stands.
+      setStatus('Confirmed — verifying the name resolves…')
+      let owner: string | null = null
+      for (let attempt = 0; attempt < 10; attempt++) {
+        owner = await resolveId(reader, id, result.userId)
+        if (owner?.toLowerCase() === holder.toLowerCase()) break
+        await new Promise((r) => setTimeout(r, 1500))
+      }
       if (owner?.toLowerCase() !== holder.toLowerCase()) {
         throw new Error('The transaction landed, but the name does not resolve to you.')
       }
