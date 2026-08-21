@@ -14,14 +14,15 @@ packages: [`@libid/claim`](https://www.npmjs.com/package/@libid/claim)
 
 ## Layout
 
-- `app/` — Next.js app router: the landing/claim page, `/resolve`, and the
-  two OAuth relay routes (`/zk/x-popup` for X, `/auth/gmail/callback` for
-  Google) that bounce the provider callback to the opener on
-  `@libid/claim`'s link channel.
-- `components/` — the claim flow, the resolve view, the relay page.
-- `lib/` — config parsing + platform enablement (pure, unit-tested) and
-  the wallet hook (connect, chain guard with `wallet_switchEthereumChain`,
-  send).
+- `app/` — Next.js app router: the landing/claim page, `/resolve`,
+  `/explorer`, and the two OAuth relay routes (`/zk/x-popup` for X,
+  `/auth/gmail/callback` for Google) that bounce the provider callback to
+  the opener on `@libid/claim`'s link channel.
+- `components/` — the claim flow, the resolve view, the explorer, the
+  relay page.
+- `lib/` — config parsing + platform enablement and the explorer's data
+  layer (pure, unit-tested), plus the wallet hook (connect, chain guard
+  with `wallet_switchEthereumChain`, send).
 - `pnpm stage-assets` — runs
   [`@libid/claim-full`](https://www.npmjs.com/package/@libid/claim-full)'s
   `libid-claim-assets` bin (via `pnpm dlx`), which copies its bundled,
@@ -43,6 +44,14 @@ full commented list. A missing platform-specific variable disables that
 platform's button (with the reason as its tooltip) — it never crashes the
 app. GitHub needs only the backend; X adds the notary + client id; Google
 adds its client id + verifier contract.
+
+`/explorer` is the same way: it searches a
+[usernames-indexer](https://github.com/libid-org/usernames-indexer)
+instance (partial handles, wallet → identities), and without
+`NEXT_PUBLIC_NAMES_API_URL` the page explains what to set instead of
+searching. Since every `NEXT_PUBLIC_` value is inlined at build time,
+changing any of them on a hosted deployment means rebuilding, not just
+restarting.
 
 ## Run locally
 

@@ -17,6 +17,7 @@ export interface RawEnv {
   X_CLIENT_ID?: string
   GMAIL_CLIENT_ID?: string
   GOOGLE_IDENTITY_VERIFIER?: string
+  NAMES_API_URL?: string
 }
 
 export interface AppConfig {
@@ -31,6 +32,8 @@ export interface AppConfig {
   xClientId: string | null
   gmailClientId: string | null
   googleVerifier: Address | null
+  /** usernames-indexer origin — the explorer's search/resolve API. */
+  namesApiUrl: string | null
 }
 
 const ADDRESS_RE = /^0x[0-9a-fA-F]{40}$/
@@ -57,6 +60,7 @@ export function loadConfig(env: RawEnv): AppConfig {
     xClientId: text(env.X_CLIENT_ID),
     gmailClientId: text(env.GMAIL_CLIENT_ID),
     googleVerifier: address(env.GOOGLE_IDENTITY_VERIFIER),
+    namesApiUrl: text(env.NAMES_API_URL),
   }
 }
 
@@ -117,6 +121,7 @@ export function readEnv(): RawEnv {
     X_CLIENT_ID: process.env.NEXT_PUBLIC_X_CLIENT_ID,
     GMAIL_CLIENT_ID: process.env.NEXT_PUBLIC_GMAIL_CLIENT_ID,
     GOOGLE_IDENTITY_VERIFIER: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_VERIFIER,
+    NAMES_API_URL: process.env.NEXT_PUBLIC_NAMES_API_URL,
   }
 }
 
