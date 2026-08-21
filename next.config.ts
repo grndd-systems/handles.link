@@ -1,10 +1,12 @@
 import type { NextConfig } from 'next'
 
-// The identity-backend origin goes into CSP connect-src (handles bare
-// http://ip:port forms). Everything else the flows talk to is covered by
-// the scheme-level sources below.
+// The identity-backend and usernames-indexer origins go into CSP
+// connect-src (handles bare http://ip:port forms). Everything else the
+// flows talk to is covered by the scheme-level sources below.
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? ''
 const apiOrigin = apiUrl ? new URL(apiUrl).origin : ''
+const namesApiUrl = process.env.NEXT_PUBLIC_NAMES_API_URL ?? ''
+const namesApiOrigin = namesApiUrl ? new URL(namesApiUrl).origin : ''
 
 const nextConfig: NextConfig = {
   devIndicators: false,
@@ -63,6 +65,7 @@ const nextConfig: NextConfig = {
       'data:',
       'blob:',
       ...(apiOrigin ? [apiOrigin] : []),
+      ...(namesApiOrigin ? [namesApiOrigin] : []),
     ].join(' ')
 
     return [

@@ -13,13 +13,15 @@ export default function ResolvePage() {
         </Link>
         <nav>
           <Link href="/">Claim</Link>
+          <Link href="/explorer">Explore</Link>
         </nav>
       </header>
 
       <h1>Look a handle up</h1>
       <p className="muted">
         Pick the platform, then paste a handle to find the wallet that claimed it — or paste a 0x
-        address to find its published handle. Reading is free and needs no wallet.
+        address to find its published handle. Reading is free and needs no wallet. Only know part of
+        the handle? The <Link href="/explorer">explorer</Link> searches.
       </p>
 
       <ResolveView />

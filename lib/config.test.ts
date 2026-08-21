@@ -12,6 +12,7 @@ const FULL: RawEnv = {
   X_CLIENT_ID: 'x-client',
   GMAIL_CLIENT_ID: 'g-client.apps.googleusercontent.com',
   GOOGLE_IDENTITY_VERIFIER: '0x8f86403a4de0bb5791fa46b8e795c547942fe4cf',
+  NAMES_API_URL: 'https://names.testnet.lib.id',
 }
 
 describe('loadConfig', () => {
@@ -21,12 +22,14 @@ describe('loadConfig', () => {
     expect(c.chainId).toBe(31337)
     expect(c.apiUrl).toBe('http://localhost:8722')
     expect(c.googleVerifier).toBe('0x8f86403a4de0bb5791fa46b8e795c547942fe4cf')
+    expect(c.namesApiUrl).toBe('https://names.testnet.lib.id')
   })
 
   it('treats empty and whitespace-only values as unset', () => {
-    const c = loadConfig({ ...FULL, API_URL: '  ', X_CLIENT_ID: '' })
+    const c = loadConfig({ ...FULL, API_URL: '  ', X_CLIENT_ID: '', NAMES_API_URL: ' ' })
     expect(c.apiUrl).toBeNull()
     expect(c.xClientId).toBeNull()
+    expect(c.namesApiUrl).toBeNull()
   })
 
   it('rejects malformed addresses instead of passing them through', () => {

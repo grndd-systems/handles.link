@@ -8,6 +8,7 @@ export default function HomePage() {
       <header className="site">
         <span className="wordmark">handles.link</span>
         <nav>
+          <Link href="/explorer">Explore</Link>
           <Link href="/resolve">Resolve</Link>
         </nav>
       </header>
