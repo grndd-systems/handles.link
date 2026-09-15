@@ -6,7 +6,7 @@ one transaction binds the handle to your address in the `IdentityNames`
 contract. Anyone with an RPC can then resolve handle → address or
 address → published handle — no platform APIs, no oracles.
 
-Built on the published [libID](https://github.com/libid-org/libid)
+Built on the published [libID](https://github.com/libid-org/libID)
 packages: [`@libid/claim`](https://www.npmjs.com/package/@libid/claim)
 (the browser claim flows) and
 [`@libid/contracts`](https://www.npmjs.com/package/@libid/contracts)
@@ -60,7 +60,7 @@ released notary/identity-backend images):
 
 ```sh
 # 1. In a libid checkout: boot the stack (and keep it running).
-git clone https://github.com/libid-org/libid && cd libid
+git clone https://github.com/libid-org/libID && cd libid
 harness/boot.sh          # KEEP_STACK=1 to leave it up when you exit
 
 # 2. Here: stage the proving assets (GitHub-only? skip this).

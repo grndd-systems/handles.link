@@ -27,7 +27,7 @@ export default function HomePage() {
       <footer className="site muted">
         <p>
           Built on{' '}
-          <a href="https://github.com/libid-org/libid" rel="noreferrer">
+          <a href="https://github.com/libid-org/libID" rel="noreferrer">
             libID
           </a>
           . Proofs are generated locally in your browser; your credentials never leave it.
